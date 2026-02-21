@@ -1,11 +1,26 @@
 import torch
+# Tensore scalare con valore 7
+scalar = torch.tensor(7)
 
-tensor1 = torch.randn(3,4)
-print(tensor1)
+#Dimensione del tensore
+#ha dimensione 0 perchè non ha direzione ne spazio, è solo un numero 
+scalar.ndim # = 0
 
-tensor2 = torch.randn(4)
-print(tensor2)
+#accedere al valore
+scalar.item() #valore solo per tensori scalari, funziona solo su essi
 
-result = torch.matmul(tensor1,tensor2)
+#vettore dove il primo è la x e il secondo è la y
+vett = torch.tensor([7,7])
 
-print(result)
+#ritorna tensore
+print(vett[0].item())
+
+
+#Matrice
+#Rappresentazione grafica 
+#4 4 
+#3 3
+#1 1
+matrix = torch.tensor([[4,4]])
+
+print(matrix.ndim)
