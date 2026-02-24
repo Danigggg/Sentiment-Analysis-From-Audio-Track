@@ -46,8 +46,6 @@ f = torch.tensor([3,4,5,6,7],dtype=torch.float32, device="cuda")
 # moltiplicazioni 
 # divisioni
 # moltiplicazioni tra matrici
-torch.manual_seed(7)
-
 ten = torch.rand(1,1,1,10)
 ten1 = torch.squeeze(ten)
 
@@ -84,10 +82,10 @@ class LinearRegressionModel(nn.Module):
     def __init__(self):
         super().__init__()
         # weight è un parametro assegnato inizialmente a un valore casuale (torch.randn(1)) ed è un parametro della neural network
-        self.weight = nn.Parameter(torch.randn(1,requires_grad=True,dtype=torch.float)) 
+        self.weight = nn.Parameter(torch.rand(1,requires_grad=True,dtype=torch.float)) 
         
         # stessa cosa per bias
-        self.bias = nn.Parameter(torch.randn(1,requires_grad=True,dtype=torch.float))
+        self.bias = nn.Parameter(torch.rand(1,requires_grad=True,dtype=torch.float))
 
     # Se erediti da nn.Module dove fare overriding di forward()
     def forward(self,x:torch.Tensor) -> torch.Tensor: # x sono i dati in input
@@ -95,4 +93,19 @@ class LinearRegressionModel(nn.Module):
 
 model_0 = LinearRegressionModel()
 
-print(model_0.state_dict())
+print(model_0.state_dict()) 
+
+# Fai delle predizioni
+with torch.inference_mode():
+    y_preds = model_0(x_test)
+
+print(y_preds)
+
+plot_pred(x_train,y_train,x_test,y_test,y_preds)
+
+# Allenare il modello
+# Dobbiamo misurare di quanto il modello ha sbagliato le predizioni
+# Usiamo una loss function/ cost function
+# Optimizer: Considera l'errore del modello e aggiusta i valori
+
+
