@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Live Whisper Transcription</title>
+</head>
+
+<body>
+
+<h2>🎙 Live Transcription</h2>
+<button onclick="start()">Start</button>
+
+<p id="output"></p>
+
+<script>
+
+let socket
+
+async function start() {
+
+    socket = new WebSocket("ws://localhost:8000/ws")
+
+    socket.onmessage = (event) => {
+        document.getElementById("output").innerText += " " + event.data
+    }
+
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+
+    const audioContext = new AudioContext({sampleRate:16000})
+    const source = audioContext.createMediaStreamSource(stream)
+
+    const processor = audioContext.createScriptProcessor(4096,1,1)
+
+    source.connect(processor)
+    processor.connect(audioContext.destination)
+
+    processor.onaudioprocess = (e)=>{
+
+        const input = e.inputBuffer.getChannelData(0)
+
+        socket.send(new Float32Array(input).buffer)
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
