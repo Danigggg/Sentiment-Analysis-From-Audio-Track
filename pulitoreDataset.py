@@ -5,12 +5,12 @@ CARTELLA_SORGENTE = "/Users/denisye/Downloads/dataSetEmozioni/"
 CARTELLA_DESTINAZIONE = "/Users/denisye/Downloads/dataSetEmozioniPulito/"
 
 def organizza_dataset_ravdess(percorso_sorgente, percorso_destinazione):
-    dizionario_emozioni = {"01": "neutrale", "02": "calmo", "03": "felice", "04": "triste", "05": "arrabbiato",
-                           "06": "impaurito", "07": "disgustato"," 08": "sorpreso"}
+    dizionario_emozioni = {"01": "neutral", "02": "calm", "03": "happy", "04": "sad", "05": "angry",
+                           "06": "fear", "07": "disgust"," 08": "surprise"}
 
     
     for emozione in dizionario_emozioni.values():
-        os.makedirs(os.path.join(percorso_destinazione, emozione), exist_ok=True)
+         os.makedirs(os.path.join(percorso_destinazione, emozione), exist_ok=True)
     
         
     file_spostati = 0
